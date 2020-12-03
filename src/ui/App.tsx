@@ -2,6 +2,7 @@ import * as React from 'react';
 import {
   BrowserRouter as Router,
   Route,
+  match,
   Switch,
 } from 'react-router-dom';
 import { getAllTeams } from '../data/teams';
@@ -9,10 +10,9 @@ import { useAsyncDataEffect } from '../utils/api';
 import Loading from './components/Loading';
 import SelectedTeam from './components/SelectedTeam';
 import TeamSelector from './components/TeamSelector';
-
 const { useState } = React;
 
-const App  :React.FunctionComponent<any> = () => {
+const App: React.FunctionComponent<any> = () => {
   const [teams, setTeams] = useState();
 
   useAsyncDataEffect(() => getAllTeams(), {
@@ -37,9 +37,12 @@ const App  :React.FunctionComponent<any> = () => {
           </Route>
           <Route
             path="/team/:teamId"
-            children={({ match }) => (
-              <SelectedTeam match={match} teams={teams} />
-            )}
+            // eslint-disable-next-line react/no-children-prop
+            children={({
+              match,
+            }: {
+              match: match<{ teamId: string }>;
+            }) => <SelectedTeam match={match} teams={teams} />}
           />
         </Switch>
       </div>
