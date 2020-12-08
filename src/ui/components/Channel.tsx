@@ -1,4 +1,5 @@
 import * as React from 'react';
+import type { IChannel,IMessage } from '../../types';
 import { getChannelMessages } from '../../data/messages';
 import { useAsyncDataEffect } from '../../utils/api';
 import ChannelFooter from './Channel/Footer';
@@ -7,11 +8,11 @@ import ChannelMessage from './Channel/Message';
 import Loading from './Loading';
 
 
-const Channel:React.FunctionComponent<any> = ({
+const Channel:React.FunctionComponent<{channel:IChannel}> = ({
   channel,
 }) => {
 
-  const [messages, setMessages] = React.useState<any[]> ();
+  const [messages, setMessages] = React.useState<IMessage[]> ();
   useAsyncDataEffect(
     () => getChannelMessages(channel.teamId, channel.id),
     {

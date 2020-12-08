@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Route, Switch,match } from 'react-router-dom';
+import { ITeam } from '../../types';
 import SelectedChannel from './SelectedChannel';
 import TeamSidebar from './TeamSidebar';
 
-const Team  :React.FunctionComponent<any> = ({ team }) => {
+const Team  :React.FunctionComponent<{team:ITeam}> = ({ team }) => {
   console.log(
     `%c TEAM render: ${team.name}`,
     'background-color: blue; color: white',
